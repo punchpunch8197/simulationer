@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  /* Prevent scrolling for the game-like map experience */
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: #f0f9ff;
+  /* Light sky blue background as default */
+}
