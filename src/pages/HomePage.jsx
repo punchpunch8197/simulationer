@@ -42,6 +42,20 @@ export default function HomePage() {
                     </div>
                 </Link>
             </div>
+
+            <div className="mt-8 text-center text-sm text-slate-400 max-w-md px-4">
+                <p>아무리 AI가 코드를 썼어도, 기획자는 사람입니다.</p>
+                <p>테스트 버전이니 부족한 점이 있을 수 있습니다. 양해해주시기 바랍니다.</p>
+                <p className="mt-3">
+                    <span className="text-slate-500">기획자</span>{' '}
+                    <span
+                        className="text-5xl bg-gradient-to-r from-indigo-600 via-purple-500 to-pink-500 bg-clip-text text-transparent drop-shadow-sm"
+                        style={{ fontFamily: "'Nanum Pen Script', cursive" }}
+                    >
+                        최진
+                    </span>
+                </p>
+            </div>
         </div>
     )
 }
