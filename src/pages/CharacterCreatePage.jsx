@@ -11,7 +11,9 @@ export default function CharacterCreatePage() {
     const [formData, setFormData] = useState({
         name: '',
         description: '',
-        tool: ''
+        tool: '',
+        hp: 100,
+        attack: 10
     })
 
     const [generatedImage, setGeneratedImage] = useState(null) // SVG string
@@ -83,7 +85,9 @@ export default function CharacterCreatePage() {
                     name: formData.name,
                     description: formData.description,
                     tool: formData.tool,
-                    image_url: publicUrl
+                    image_url: publicUrl,
+                    hp: parseInt(formData.hp),
+                    attack: parseInt(formData.attack)
                 }])
 
             if (dbError) throw dbError
@@ -143,6 +147,33 @@ export default function CharacterCreatePage() {
                             onChange={handleInputChange}
                             className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-indigo-500 focus:ring-0 transition-colors"
                         />
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-sm font-bold text-slate-700 mb-2">체력 (HP)</label>
+                            <input
+                                type="number"
+                                name="hp"
+                                min="10"
+                                max="500"
+                                value={formData.hp}
+                                onChange={handleInputChange}
+                                className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-indigo-500 focus:ring-0 transition-colors"
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-bold text-slate-700 mb-2">공격력 (ATK)</label>
+                            <input
+                                type="number"
+                                name="attack"
+                                min="1"
+                                max="100"
+                                value={formData.attack}
+                                onChange={handleInputChange}
+                                className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 focus:border-indigo-500 focus:ring-0 transition-colors"
+                            />
+                        </div>
                     </div>
 
                     <button

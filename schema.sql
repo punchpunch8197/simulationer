@@ -8,6 +8,8 @@ create table characters (
   description text,
   tool text,
   image_url text,
+  hp integer not null default 100,
+  attack integer not null default 10,
   created_at timestamp with time zone default timezone('utc'::text, now())
 );
 
