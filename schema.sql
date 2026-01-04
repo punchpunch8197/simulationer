@@ -28,6 +28,8 @@ create table map_characters (
   character_id uuid references characters(id) on delete cascade,
   position_x numeric not null,
   position_y numeric not null,
+  team integer not null default 1,
+  slot integer not null default 0,
   created_at timestamp with time zone default timezone('utc'::text, now())
 );
 

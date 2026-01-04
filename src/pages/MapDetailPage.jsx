@@ -128,6 +128,7 @@ export default function MapDetailPage() {
     useEffect(() => {
         fetchMapData()
         fetchAvailableCharacters()
+        loadSavedTeams()
     }, [id])
 
     useEffect(() => {
@@ -162,18 +163,85 @@ export default function MapDetailPage() {
         if (data) setAvailableCharacters(data)
     }
 
+    const loadSavedTeams = async () => {
+        const { data, error } = await supabase
+            .from('map_characters')
+            .select(`*, characters(*)`)
+            .eq('map_id', id)
+
+        if (error || !data) return
+
+        const newTeam1 = [null, null, null]
+        const newTeam2 = [null, null, null]
+
+        data.forEach(placement => {
+            const char = {
+                ...placement.characters,
+                currentHp: placement.characters.hp,
+                x: Number(placement.position_x),
+                y: Number(placement.position_y),
+                placementId: placement.id
+            }
+            if (placement.team === 1 && placement.slot >= 0 && placement.slot < 3) {
+                newTeam1[placement.slot] = char
+            } else if (placement.team === 2 && placement.slot >= 0 && placement.slot < 3) {
+                newTeam2[placement.slot] = char
+            }
+        })
+
+        setTeam1(newTeam1)
+        setTeam2(newTeam2)
+    }
+
+    const saveCharacterToDb = async (char, team, slot) => {
+        const { data, error } = await supabase
+            .from('map_characters')
+            .insert([{
+                map_id: id,
+                character_id: char.id,
+                position_x: char.x,
+                position_y: char.y,
+                team: team,
+                slot: slot
+            }])
+            .select()
+            .single()
+
+        if (!error && data) {
+            return data.id
+        }
+        return null
+    }
+
+    const updatePositionInDb = async (placementId, x, y) => {
+        await supabase
+            .from('map_characters')
+            .update({ position_x: x, position_y: y })
+            .eq('id', placementId)
+    }
+
+    const clearTeamsFromDb = async () => {
+        await supabase
+            .from('map_characters')
+            .delete()
+            .eq('map_id', id)
+    }
+
     const handleOpenCharSelector = (team, slot) => {
         setSelectingForTeam({ team, slot })
         setShowCharSelector(true)
     }
 
-    const handleAddCharacter = (char) => {
+    const handleAddCharacter = async (char) => {
         const newChar = {
             ...char,
             currentHp: char.hp,
             x: selectingForTeam.team === 1 ? 20 + Math.random() * 20 : 60 + Math.random() * 20,
             y: 30 + selectingForTeam.slot * 25
         }
+
+        const placementId = await saveCharacterToDb(newChar, selectingForTeam.team, selectingForTeam.slot)
+        newChar.placementId = placementId
 
         if (selectingForTeam.team === 1) {
             setTeam1(prev => {
@@ -217,6 +285,11 @@ export default function MapDetailPage() {
                 newX = Math.max(55, Math.min(95, newX))
             }
             newY = Math.max(0, Math.min(85, newY))
+
+            // DB 업데이트
+            if (char.placementId) {
+                updatePositionInDb(char.placementId, newX, newY)
+            }
 
             return { ...char, x: newX, y: newY }
         }
@@ -338,7 +411,8 @@ export default function MapDetailPage() {
         setTeam2Index(0)
     }
 
-    const clearTeams = () => {
+    const clearTeams = async () => {
+        await clearTeamsFromDb()
         setTeam1([null, null, null])
         setTeam2([null, null, null])
         resetBattle()
