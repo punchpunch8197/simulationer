@@ -1,18 +1,51 @@
-# React + Vite
+# 시뮬레이셔너
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+안녕! 나는 이 게임을 만든 사람이야!
 
-Currently, two official plugins are available:
+## 이게 뭐야?
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+이건 내가 만든 **캐릭터 만들기 게임**이야!
+AI가 내가 설명한대로 캐릭터를 그려줘! 진짜 신기해!
 
-## React Compiler
+## 할 수 있는 것들
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 1. 캐릭터 만들기
+- 캐릭터 이름을 정하고
+- 어떻게 생겼는지 설명하면
+- AI가 그림을 그려줘!
+- 마음에 들면 저장할 수 있어!
 
-## Expanding the ESLint configuration
+### 2. 맵 꾸미기
+- 신비한 숲
+- 미래 도시
+- 우주 정거장
+- 마법의 성
+- 깊은 바다
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+이런 배경 중에서 고를 수 있어!
+그리고 내가 만든 캐릭터를 맵에 올려놓을 수 있어!
 
-supabase db ps : dhGte3qpKvNURGKQ
+## 어떻게 실행해?
+
+```
+npm install
+npm run dev
+```
+
+이거 치면 돼!
+
+## 만든 사람
+
+나!
+
+## 사용한 것들
+
+- React (화면 만드는거)
+- Vite (빠르게 만드는거)
+- Tailwind CSS (예쁘게 만드는거)
+- Supabase (저장하는거)
+- Google Gemini (그림 그리는 AI)
+
+---
+
+이 게임 재밌게 해줘! 끝!
