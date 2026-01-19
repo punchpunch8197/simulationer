@@ -1,6 +1,7 @@
 
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import { LayoutDashboard, Users, Map as MapIcon, Plus } from 'lucide-react'
+import { SpeedInsights } from '@vercel/speed-insights/react'
 import HomePage from './pages/HomePage'
 import CharacterCreatePage from './pages/CharacterCreatePage'
 import MapListPage from './pages/MapListPage'
@@ -33,16 +34,19 @@ function Layout({ children }) {
 
 function App() {
   return (
-    <BrowserRouter>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/characters/new" element={<CharacterCreatePage />} />
-          <Route path="/maps" element={<MapListPage />} />
-          <Route path="/maps/:id" element={<MapDetailPage />} />
-        </Routes>
-      </Layout>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/characters/new" element={<CharacterCreatePage />} />
+            <Route path="/maps" element={<MapListPage />} />
+            <Route path="/maps/:id" element={<MapDetailPage />} />
+          </Routes>
+        </Layout>
+      </BrowserRouter>
+      <SpeedInsights />
+    </>
   )
 }
 
